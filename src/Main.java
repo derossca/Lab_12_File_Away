@@ -9,6 +9,7 @@ import static java.nio.file.StandardOpenOption.CREATE;
 public class Main {
     public static void main(String[] args)
     {
+        //declaring variables
         JFileChooser chooser = new JFileChooser();
         File selectedFile;
         String rec = "";
@@ -27,7 +28,7 @@ public class Main {
                 selectedFile = chooser.getSelectedFile();
                 Path file = selectedFile.toPath();
 
-                //wrapping the Buffered writer around BufferedOutputStream
+                //wrapping the BufferedWriter around BufferedOutputStream because of class hierarchy
                 InputStream in = new BufferedInputStream(Files.newInputStream(file, CREATE));
 
                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
@@ -37,7 +38,6 @@ public class Main {
                 while (reader.ready()) {
                     rec = reader.readLine();
                     line++;
-
                     //print to screen
                     System.out.printf("\nLine %4d %-60s ", line, rec);
                 }
