@@ -48,8 +48,8 @@ public class Main {
                     String words [] = rec.split(" ");
                     wordCount += words.length;
 
-                    //print to screen summary report
-                    System.out.printf("\nLine %4d %-60s ", line, rec);
+                    //print to screen
+                    //System.out.printf("\nLine %4d %-60s ", line, rec);
                 }
 
                 //Print to screen
