@@ -1,3 +1,4 @@
+import java.util.*;
 import javax.swing.*;
 import java.io.*;
 import java.nio.file.Files;
@@ -13,7 +14,7 @@ public class Main {
         JFileChooser chooser = new JFileChooser();
         File selectedFile;
         String rec = "";
-
+        Scanner in;
 
         try
         {
@@ -26,22 +27,34 @@ public class Main {
             //to make sure the user doesn't close without picking a file
             if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                 selectedFile = chooser.getSelectedFile();
-                Path file = selectedFile.toPath();
+                in = new Scanner(selectedFile);
 
-                //wrapping the BufferedWriter around BufferedOutputStream because of class hierarchy
-                InputStream in = new BufferedInputStream(Files.newInputStream(file, CREATE));
+                /*wrapping the BufferedWriter around BufferedOutputStream because of class hierarchy
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                InputStream stream = new BufferedInputStream(Files.newInputStream(file, CREATE));
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+
+                 */
 
                 //now read the file
                 int line = 0;
-                while (reader.ready()) {
-                    rec = reader.readLine();
+                int characters = 0;
+                int wordCount = 0;
+                while (in.hasNextLine()) {
+                    rec = in.nextLine();
                     line++;
+                    characters += rec.length();
+                    String words [] = rec.split(" ");
+                    wordCount += words.length;
+
                     //print to screen
-                    System.out.printf("\nLine %4d %-60s ", line, rec);
+                    //System.out.printf("\nLine %4d %-60s ", line, rec);
                 }
-                reader.close(); // closing file to seal it and flush buffer
+
+                //Print to screen
+                System.out.println(line + " lines " + characters + " characters " + wordCount + " words ");
+                in.close(); // closing file to seal it and flush buffer
                 System.out.println("\n\nData file read!");
             } else //user closed the chooser without selecting a file
             {
